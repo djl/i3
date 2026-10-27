@@ -3002,6 +3002,29 @@ for_window [all] title_window_icon on
 for_window [all] title_window_icon padding 3px
 -------------------------------------------------------------------------------------
 
+=== Window border color
+
+The border color of a window normally comes from the +client.*+ color settings
+(see <<client_colors>>). Using +border_color+, you can override the
++child_border+ color for specific windows (for example using the
+<<for_window>> directive). The override applies regardless of whether the
+window is focused, unfocused or urgent. Use +none+ to go back to the
++client.*+ colors.
+
+*Syntax*:
+------------------------------------
+border_color <#rrggbb|#rrggbbaa|none>
+------------------------------------
+
+*Examples*:
+-------------------------------------------------------
+# give all Firefox windows a red border
+for_window [class="(?i)firefox"] border_color #ff0000
+
+# reset the border color of the focused window
+bindsym $mod+n border_color none
+-------------------------------------------------------
+
 === Changing border style
 
 To change the border of the current client, you can use +border normal+ to use the normal

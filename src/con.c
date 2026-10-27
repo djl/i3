@@ -79,6 +79,7 @@ Con *con_new(Con *parent, i3Window *window) {
  */
 void con_free(Con *con) {
     free(con->name);
+    FREE(con->border_color);
     FREE(con->deco_render_params);
     TAILQ_REMOVE(&all_cons, con, all_cons);
     while (!TAILQ_EMPTY(&(con->swallow_head))) {
@@ -2715,6 +2716,12 @@ void con_merge_into(Con *old, Con *new) {
         FREE(new->title_format);
         new->title_format = old->title_format;
         old->title_format = NULL;
+    }
+
+    if (old->border_color) {
+        FREE(new->border_color);
+        new->border_color = old->border_color;
+        old->border_color = NULL;
     }
 
     if (old->sticky_group) {

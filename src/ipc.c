@@ -532,6 +532,11 @@ void dump_node(yajl_gen gen, Con *con, bool inplace_restart) {
         ystr(con->title_format);
     }
 
+    if (con->border_color != NULL) {
+        ystr("border_color");
+        ystr(con->border_color);
+    }
+
     ystr("window_icon_padding");
     y(integer, con->window_icon_padding);
 

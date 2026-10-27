@@ -219,6 +219,7 @@ struct width_height {
  */
 struct deco_render_params {
     struct Colortriple *color;
+    color_t child_border;
     int border_style;
     struct width_height con_rect;
     struct width_height con_window_rect;
@@ -709,6 +710,10 @@ struct Con {
 
     /** The format with which the window's name should be displayed. */
     char *title_format;
+
+    /** Per-window border color ("#rrggbb[aa]") overriding the client.*
+     * child_border color, or NULL. */
+    char *border_color;
 
     /** Whether the window icon should be displayed, and with what padding. -1
      * means display no window icon (default behavior), 0 means display without

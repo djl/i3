@@ -2016,6 +2016,33 @@ void cmd_swap(I3_CMD, const char *mode, const char *arg) {
 }
 
 /*
+ * Implementation of 'border_color <#rrggbb[aa]>|none'
+ *
+ */
+void cmd_border_color(I3_CMD, const char *color) {
+    const bool reset = (strcasecmp(color, "none") == 0);
+    const size_t len = strlen(color);
+    if (!reset && (color[0] != '#' || (len != 7 && len != 9) || strspn(color + 1, "0123456789abcdefABCDEF") != len - 1)) {
+        yerror("Invalid color \"%s\", expected #rrggbb, #rrggbbaa or none.", color);
+        return;
+    }
+
+    DLOG("setting border_color to \"%s\"\n", color);
+    HANDLE_EMPTY_MATCH;
+
+    owindow *current;
+    TAILQ_FOREACH (current, &OWINDOWS, owindows) {
+        FREE(current->con->border_color);
+        if (!reset) {
+            current->con->border_color = sstrdup(color);
+        }
+    }
+
+    cmd_output->needs_tree_render = true;
+    ysuccess(true);
+}
+
+/*
  * Implementation of 'title_format <format>'
  *
  */

@@ -297,6 +297,12 @@ void cmd_scratchpad_show(I3_CMD);
 void cmd_swap(I3_CMD, const char *mode, const char *arg);
 
 /**
+ * Implementation of 'border_color <#rrggbb[aa]>|none'
+ *
+ */
+void cmd_border_color(I3_CMD, const char *color);
+
+/**
  * Implementation of 'title_format <format>'
  *
  */

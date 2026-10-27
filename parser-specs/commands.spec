@@ -21,6 +21,7 @@ state INITIAL:
   'reload' -> call cmd_reload()
   'shmlog' -> SHMLOG
   'debuglog' -> DEBUGLOG
+  'border_color' -> BORDER_COLOR
   'border' -> BORDER
   'layout' -> LAYOUT
   'append_layout' -> APPEND_LAYOUT
@@ -119,6 +120,11 @@ state BORDER_WIDTH:
     -> call cmd_border($border_style, -1)
   border_width = number
     -> call cmd_border($border_style, &border_width)
+
+# border_color <#rrggbb[aa]>|none
+state BORDER_COLOR:
+  color = word
+    -> call cmd_border_color($color)
 
 # gaps inner|outer|horizontal|vertical|top|right|bottom|left [current] [set|plus|minus|toggle] <px>
 state GAPS:

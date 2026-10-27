@@ -508,6 +508,7 @@ void x_draw_decoration(Con *con) {
         p->color = &config.client.unfocused;
     }
 
+    p->child_border = (con->border_color ? draw_util_hex_to_color(con->border_color) : p->color->child_border);
     p->border_style = con_border_style(con);
 
     Rect *r = &(con->rect);
@@ -572,7 +573,7 @@ void x_draw_decoration(Con *con) {
         xcb_rectangle_t rectangles[4];
         size_t rectangles_count = x_get_border_rectangles(con, rectangles);
         for (size_t i = 0; i < rectangles_count; i++) {
-            draw_util_rectangle(&(con->frame_buffer), p->color->child_border,
+            draw_util_rectangle(&(con->frame_buffer), p->child_border,
                                 rectangles[i].x,
                                 rectangles[i].y,
                                 rectangles[i].width,
